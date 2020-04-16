@@ -14,15 +14,13 @@ function getUsers(cb) {
   xhr.send();
 }
 
-getUsers(callBack);
+getUsers((response) => {
+  renderUsers(response);
+  userDetails(response);
+});
 
 const container = document.querySelector(".container");
 const globalBody = document.querySelector("body");
-
-function callBack(response) {
-  renderUsers(response);
-  userDetails(response);
-}
 
 function renderUsers(response) {
   const createList = document.createDocumentFragment();
