@@ -6,8 +6,6 @@
 # Ignore IDE specific files
 .idea/
 .vscode/
-index.html
-app.js
 *.pptx
 *.sw*
 
