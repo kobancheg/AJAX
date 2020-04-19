@@ -14,13 +14,23 @@ function getUsers(cb) {
   xhr.send();
 }
 
-getUsers((response) => {
+getUsers((response) => { 
   renderUsers(response);
   userDetails(response);
-});
+ });
 
 const container = document.querySelector(".container");
 const globalBody = document.querySelector("body");
+
+function userList(user) {
+  const li = document.createElement("li");
+  li.id = user.id;
+    li.classList.add("list-group-item");
+    li.textContent = user.name;
+    li.setAttribute("data-toggle", "modal");
+    li.dataset.target = "#modal";
+  return li;
+}
 
 function renderUsers(response) {
   const createList = document.createDocumentFragment();
@@ -28,14 +38,9 @@ function renderUsers(response) {
   card.classList.add("card");
   const ul = document.createElement("ul");
   ul.classList.add("list-group", "list-list-group-flush");
-
+  
   response.forEach((user) => {
-    const li = document.createElement("li");
-    li.id = user.id;
-    li.classList.add("list-group-item");
-    li.textContent = user.name;
-    li.setAttribute("data-toggle", "modal");
-    li.dataset.target = "#modal";
+    const li = userList(user);
     ul.appendChild(li);
   });
 
@@ -83,8 +88,8 @@ function userDetails(response) {
   catchPhrases.classList.add("list-group-item");
   let bss = document.createElement("li");
   bss.classList.add("list-group-item");
-
-  container.addEventListener("click", ({ target }) => {
+  
+  const userItem = ({ target }) => {
     const user = response.find((element) => element.id === +target.id);
     const {
       name,
@@ -95,7 +100,7 @@ function userDetails(response) {
       website,
       company: { name: company, catchPhrase, bs } = {},
     } = ({} = user);
-
+    
     names.textContent = "name: " + name;
     usernames.textContent = "username: " + username;
     emails.textContent = "email: " + email;
@@ -110,7 +115,7 @@ function userDetails(response) {
     companys.textContent = "company: " + company;
     catchPhrases.textContent = "catchPhrase: " + catchPhrase;
     bss.textContent = "bs: " + bs;
-  });
+  };
 
   ul.appendChild(names);
   ul.appendChild(usernames);
@@ -131,4 +136,6 @@ function userDetails(response) {
   modalFade.appendChild(dialog);
   createModal.appendChild(modalFade);
   globalBody.insertBefore(createModal, container);
+  
+  container.addEventListener("click", userItem);
 }
