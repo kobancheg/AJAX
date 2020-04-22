@@ -20,51 +20,66 @@
       <div class="row">
         <div class="col-12 col-sm-6">
           <form id="userForm">
-            <div class="col">
-              <input
-                class="form-control"
-                type="text"
-                placeholder="name"
-                name="name"
-              />
-            </div>
-            <div class="col">
-              <input
-                class="form-control"
-                type="text"
-                placeholder="username"
-                name="username"
-              />
-            </div>
-            <div class="col">
-              <input
-                class="form-control"
-                type="text"
-                placeholder="email"
-                name="email"
-              />
-            </div>
-            <div class="col">
-              <input
-                class="form-control"
-                type="text"
-                placeholder="phone"
-                name="phone"
-              />
-            </div>
-            <div class="col">
-              <input
-                class="form-control"
-                type="text"
-                placeholder="website"
-                name="website"
-              />
+            <div class="row">
+              <div class="col-12 col-lg-6 mb-3">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="name"
+                  name="name"
+                />
+              </div>
+              <div class="col-12 col-lg-6 my-3">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="username"
+                  name="username"
+                />
+              </div>
+              <div class="col-12 col-lg-6 my-3">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="email"
+                  name="email"
+                />
+              </div>
+              <div class="col-12 col-lg-6 my-3">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="phone"
+                  name="phone"
+                />
+              </div>
+              <div class="col-12 col-lg-6 my-3">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="website"
+                  name="website"
+                />
+              </div>
             </div>
             <button type="submit" class="btn btn-info">add user</button>
           </form>
         </div>
         <div class="col-12 col-sm-6">
           <ul class="user__list list-group list-list-group-flush"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="modal"
+      class="modal fade"
+      style="display: none;"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <ul class="modal__list list-group"></ul>
         </div>
       </div>
     </div>
