@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,9 +13,61 @@
 
     <title>Document</title>
   </head>
+
   <body>
     <h1 class="text-center">USERS</h1>
-    <div class="container"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <form id="userForm">
+            <div class="col">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="name"
+                name="name"
+              />
+            </div>
+            <div class="col">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="username"
+                name="username"
+              />
+            </div>
+            <div class="col">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="email"
+                name="email"
+              />
+            </div>
+            <div class="col">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="phone"
+                name="phone"
+              />
+            </div>
+            <div class="col">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="website"
+                name="website"
+              />
+            </div>
+            <button type="submit" class="btn btn-info">add user</button>
+          </form>
+        </div>
+        <div class="col-12 col-sm-6">
+          <ul class="user__list list-group list-list-group-flush"></ul>
+        </div>
+      </div>
+    </div>
 
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
