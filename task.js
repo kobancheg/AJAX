@@ -95,6 +95,7 @@ btn.addEventListener('click', (e) => {
   //   li.dataset.toggle = 'modal';
   //   li.dataset.target = '#modal';
   //   ul.insertAdjacentElement('afterbegin', li);
+  form.reset();
 });
 
 function userDetails() {
