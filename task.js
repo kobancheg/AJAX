@@ -64,7 +64,6 @@ myHttp.get('https://jsonplaceholder.typicode.com/users/', (err, response) => {
     return;
   }
   renderUsers(response);
-  userDetails(response);
 });
 
 const container = document.querySelector('.container');
@@ -125,7 +124,15 @@ btn.addEventListener('click', (e) => {
   form.reset();
 });
 
-function userDetails() {
+container.addEventListener('click', ({ target }) => {
+  if (target.tagName === 'LI') {
+    const user = allUsers.find((element) => element.id === +target.id);
+	 document.querySelector('.modal__list').innerHTML = '';
+    userDetails(user);
+  }
+});
+
+function userDetails({ name, username, email, phone, website }) {
   const ul = document.querySelector('.modal__list');
   let names = document.createElement('li');
   names.classList.add('list-group-item');
@@ -138,24 +145,15 @@ function userDetails() {
   let websites = document.createElement('li');
   websites.classList.add('list-group-item');
 
-  const userItem = ({ target }) => {
-    if (target.tagName === 'LI') {
-      const user = allUsers.find((element) => element.id === +target.id);
-      const { name, username, email, phone, website } = ({} = user);
-
-      names.textContent = 'name: ' + name;
-      usernames.textContent = 'username: ' + username;
-      emails.textContent = 'email: ' + email;
-      phones.textContent = 'phone: ' + phone;
-      websites.textContent = 'website: ' + website;
-    }
-  };
+  names.textContent = 'name: ' + name;
+  usernames.textContent = 'username: ' + username;
+  emails.textContent = 'email: ' + email;
+  phones.textContent = 'phone: ' + phone;
+  websites.textContent = 'website: ' + website;
 
   ul.appendChild(names);
   ul.appendChild(usernames);
   ul.appendChild(emails);
   ul.appendChild(phones);
   ul.appendChild(websites);
-
-  container.addEventListener('click', userItem);
 }
