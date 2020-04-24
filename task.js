@@ -78,9 +78,6 @@ btn.addEventListener('click', (e) => {
     website: form.website.value,
   };
 
-  // userPost(newUser);
-  // allUsers.push(newUser);
-
   userPost(newUser, (resPost) => {
     const li = userList(resPost);
     li.id = newUser.id;
@@ -88,13 +85,6 @@ btn.addEventListener('click', (e) => {
     ul.insertAdjacentElement('afterbegin', li);
   });
 
-  //   const li = document.createElement('li');
-  //   li.classList.add('list-group-item');
-  //   li.id = newUser.id;
-  //   li.textContent = newUser.name;
-  //   li.dataset.toggle = 'modal';
-  //   li.dataset.target = '#modal';
-  //   ul.insertAdjacentElement('afterbegin', li);
   form.reset();
 });
 
