@@ -1,42 +1,71 @@
 allUsers = [];
-function getUsers(cb) {
-  const xhr = new XMLHttpRequest();
 
-  xhr.open('GET', 'https://jsonplaceholder.typicode.com/users/');
-  xhr.addEventListener('load', () => {
-    const response = JSON.parse(xhr.responseText);
-    cb(response);
-    allUsers = [...response];
-  });
+function http() {
+  return {
+    get(url, cb) {
+      try {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.addEventListener('load', () => {
+          if (Math.floor(xhr.status / 100) !== 2) {
+            cb(`Error. Status code: ${xhr.status}`, xhr);
+            return;
+          }
+          const response = JSON.parse(xhr.responseText);
+          cb(null, response);
+          allUsers = [...response];
+        });
 
-  xhr.addEventListener('error', () => {
-    console.log('error');
-  });
+        xhr.addEventListener('error', () => {
+          cb(`Error. Status code: ${xhr.status}`, xhr);
+        });
 
-  xhr.send();
+        xhr.send();
+      } catch (error) {
+        cb(error);
+      }
+    },
+    post(url, body, headers, cb) {
+      try {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        xhr.addEventListener('load', () => {
+          if (Math.floor(xhr.status / 100) !== 2) {
+            cb(`Error. Status code: ${xhr.status}`, xhr);
+            return;
+          }
+          const response = JSON.parse(xhr.responseText);
+          cb(null, response);
+        });
+
+        xhr.addEventListener('error', () => {
+          cb(`Error. Status code: ${xhr.status}`, xhr);
+        });
+
+        if (headers) {
+          Object.entries(headers).forEach(([key, value]) => {
+            xhr.setRequestHeader(key, value);
+          });
+        }
+
+        xhr.send(JSON.stringify(body));
+      } catch (error) {
+        cb(error);
+      }
+    },
+  };
 }
 
-getUsers((response) => {
+const myHttp = http();
+
+myHttp.get('https://jsonplaceholder.typicode.com/users/', (err, response) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
   renderUsers(response);
   userDetails(response);
 });
-
-function userPost(body, cb) {
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', 'https://jsonplaceholder.typicode.com/posts');
-  xhr.addEventListener('load', () => {
-    const response = JSON.parse(xhr.responseText);
-    cb(response);
-  });
-
-  xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
-
-  xhr.addEventListener('error', () => {
-    console.log('error');
-  });
-
-  xhr.send(JSON.stringify(body));
-}
 
 const container = document.querySelector('.container');
 const ul = document.querySelector('.user__list');
@@ -78,12 +107,20 @@ btn.addEventListener('click', (e) => {
     website: form.website.value,
   };
 
-  userPost(newUser, (resPost) => {
-    const li = userList(resPost);
-    li.id = newUser.id;
-    allUsers.push(newUser);
-    ul.insertAdjacentElement('afterbegin', li);
-  });
+  myHttp.post(
+    'https://jsonplaceholder.typicode.com/posts',
+    newUser,
+    { 'Content-Type': 'application/json', 'x-auth': 'asd9387ydh9iuashdis' },
+    (err, res) => {
+      if (err) {
+        console.log(err);
+      }
+      const li = userList(res);
+      li.id = newUser.id;
+      allUsers.push(newUser);
+      ul.insertAdjacentElement('afterbegin', li);
+    }
+  );
 
   form.reset();
 });
