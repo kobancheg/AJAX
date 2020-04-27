@@ -124,13 +124,15 @@ btn.addEventListener('click', (e) => {
 	form.reset();
 });
 
-container.addEventListener('click', ({ target }) => {
+function modalUser({ target }) {
 	if (target.tagName === 'LI') {
 		const user = allUsers.find((element) => element.id === +target.id);
 		document.querySelector('.modal__list').innerHTML = '';
 		userDetails(user);
 	}
-});
+}
+
+container.addEventListener('click', modalUser)
 
 function userDetails({ name, username, email, phone, website }) {
 	const ul = document.querySelector('.modal__list');
